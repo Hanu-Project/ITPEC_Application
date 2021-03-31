@@ -15,9 +15,12 @@ export default class App extends Component {
   
   onLogin() {
      
-    const { username, password } = this.state;
+    const loginInfo = this.state;
+    if (loginInfo.username === 'admin' && loginInfo.password === '123'){
+      Alert.alert('Welcome!', `${loginInfo.username} + ${loginInfo.password}`);
+    } else {Alert.alert('No', `${loginInfo.username} + ${loginInfo.password}`);}
    
-    Alert.alert('No', `${username} + ${password}`);
+    
     
   }
 

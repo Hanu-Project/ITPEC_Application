@@ -1,64 +1,20 @@
 import React,  { useState } from 'react';
-import { Alert, TouchableOpacity, TextInput, View, StyleSheet, ImageBackground, Image, Text } from 'react-native';
+import {StyleSheet } from 'react-native';
+import { Homepage } from './screen/Homepage.js';
 
+import Login from './screen/Login';
 
 
 
 const  App = () => {
-   const [username, setUsername] = useState('');
-   const [password, setPassword] = useState('');
-   
-
-
-
-
+  const [login,setLogin] = useState(false);
+  return (
+  <>
+    {login?<Login login={login} setLogin={setLogin}></Login>:<Homepage></Homepage>}
+  </>
+    
+  );
   
-  const onLogin = () => {
-     
-    const loginInfo = {username, password};
-    if (loginInfo.username === 'admin' && loginInfo.password === '123'){
-      Alert.alert('Welcome!', `${loginInfo.username} + ${loginInfo.password}`);
-    } else {Alert.alert('No', `${loginInfo.username} + ${loginInfo.password}`);}
-   
-    
-    
-  }
-
- 
-    return (
-      <View style={styles.container} >
-        <ImageBackground source={require('./images/login-bg.png')} style={styles.loginBackground}>
-          <Image source={require('./images/app_logo.png')}/>
-        <View style={styles.inputView}>
-          <Text style={styles.loginText}>Login</Text>
-        <TextInput
-          value = {username}
-          onChangeText={(username) => setUsername(username)}
-          placeholder={'Username'}
-          style={styles.input}
-        />
-        <TextInput
-          value={password}
-          onChangeText={(password) => setPassword(password)}
-          placeholder={'Password'}
-          secureTextEntry={true}
-          style={styles.input}
-        />
-        </View>  
-        <TouchableOpacity
-          title={'Login'}
-          style={styles.loginButton}
-         onPress={onLogin}
-        ><Text style={styles.loginText}>GO!</Text></TouchableOpacity>
-
-    </ImageBackground>
-      </View>
-    );
-
-
-
-
-
 };
 
 const styles = StyleSheet.create({

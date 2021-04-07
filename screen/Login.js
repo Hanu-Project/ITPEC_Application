@@ -4,7 +4,7 @@ import { Alert, TouchableOpacity, TextInput, View, StyleSheet, ImageBackground, 
 
 
 
-const  Login = (props) => {
+const  Login = () => {
    const [username, setUsername] = useState('');
    const [password, setPassword] = useState('');
    
@@ -18,7 +18,7 @@ const  Login = (props) => {
     const loginInfo = {username, password};
     if (loginInfo.username === 'admin' && loginInfo.password === '123'){
       Alert.alert('Welcome!', `${loginInfo.username} + ${loginInfo.password}`);
-      props.setLogin(!props.login)
+      // props.setLogin(!props.login)
     } else {Alert.alert('No', `${loginInfo.username} + ${loginInfo.password}`);}
    
     

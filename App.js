@@ -7,11 +7,13 @@ import Login from './screen/Login';
 
 
 const  App = () => {
-  const [login,setLogin] = useState(false);
+  // const [login,setLogin] = useState(false);
   return (
-  <>
-    {login?<Login login={login} setLogin={setLogin}></Login>:<Homepage></Homepage>}
-  </>
+
+    <Login></Login>
+  // <>
+  //   {login?<Login login={login} setLogin={setLogin}></Login>:<Homepage></Homepage>}
+  // </>
     
   );
   

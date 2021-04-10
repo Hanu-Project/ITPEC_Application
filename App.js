@@ -12,18 +12,27 @@ import ResultDetail from './screen/ResultDetail'
 
 
 const  App = () => {
-  const [currentScreen, setCurrentScreen] = useState(screens.welcome);
+  const [currentScreen, setCurrentScreen] = useState(screens.welcome)
+  const [currentAccount, setCurrentAccount] = useState(null)
 
-  function handleMoveScreen(screen) {
+  function handleMoveScreen(screen, options) {
     setCurrentScreen(screen)
+    console.log(options)
   }
+
 
   function renderScreen() {
     switch (currentScreen) {
       case screens.welcome:
         return <Welcome handleMoveScreen={handleMoveScreen} />
       case screens.login:
-        return <Login handleMoveScreen={handleMoveScreen} />
+        return (
+          <Login
+            handleMoveScreen={handleMoveScreen}
+            currentAccount={currentAccount}
+            setCurrentAccount={setCurrentAccount}
+          />
+        )
       case screens.home:
         return <Home handleMoveScreen={handleMoveScreen} />
       case screens.questionList:

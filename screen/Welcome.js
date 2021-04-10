@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontWeight: 'bold',
     fontSize: 26,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   startBtn: {
     display: 'flex',
@@ -80,9 +80,7 @@ const styles = StyleSheet.create({
     paddingRight: 37,
     paddingBottom: 8,
     paddingTop: 8,
-    // height: 62,
-    width: 252,
-    // textAlign: 'center'
+    width: 252
   }
 })
 

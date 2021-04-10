@@ -23,3 +23,8 @@ export const accounts = [
     password: 'test'
   }
 ]
+
+export const exams = {
+  fundamentalInformationTechnologyEnginner: 'fundamentalInformationTechnologyEnginner',
+  informationTechnologyPassport: 'informationTechnologyPassport'
+}

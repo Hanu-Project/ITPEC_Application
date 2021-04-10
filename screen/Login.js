@@ -1,4 +1,4 @@
-import React,  { useState } from 'react';
+import React,  { useState, useEffect } from 'react';
 import {
   Alert,
   TouchableOpacity,
@@ -13,17 +13,24 @@ import {
 
 import { accounts, colors, screens } from '../constants'
 
-const  Login = ({ handleMoveScreen }) => {
+const Login = ({ handleMoveScreen, setCurrentAccount, currentAccount }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
+  useEffect(() => {
+    if (currentAccount) {
+      handleMoveScreen(screens.home)
+    }
+  }, [currentAccount])
+
   function handleLogin() {
-    const account = accounts.find(function(account) {
+    const currentAccount = accounts.find(function(account) {
       return account.username === username
     })
 
-    if (account && account.password === password) {
+    if (currentAccount && currentAccount.password === password) {
       handleMoveScreen(screens.home)
+      setCurrentAccount(currentAccount)
     } else {
       Alert.alert('Login failed', 'Wrong username or password')
     }

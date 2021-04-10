@@ -1,142 +1,140 @@
 import React,  { useState } from 'react';
-import { Alert, TouchableOpacity, TextInput, View, StyleSheet, ImageBackground, Image, Text } from 'react-native';
+import {
+  Alert,
+  TouchableOpacity,
+  TextInput,
+  View,
+  StyleSheet,
+  ImageBackground,
+  Image,
+  Text,
+  Dimensions
+} from 'react-native';
 
+import { accounts, colors, screens } from '../constants'
 
+const  Login = ({ handleMoveScreen }) => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
+  function handleLogin() {
+    const account = accounts.find(function(account) {
+      return account.username === username
+    })
 
-const  Login = () => {
-   const [username, setUsername] = useState('');
-   const [password, setPassword] = useState('');
-   
-
-
-
-
-  
-  const onLogin = () => {
-     
-    const loginInfo = {username, password};
-    if (loginInfo.username === 'admin' && loginInfo.password === '123'){
-      Alert.alert('Welcome!', `${loginInfo.username} + ${loginInfo.password}`);
-      // props.setLogin(!props.login)
-    } else {Alert.alert('No', `${loginInfo.username} + ${loginInfo.password}`);}
-   
-    
-    
+    if (account && account.password === password) {
+      handleMoveScreen(screens.home)
+    } else {
+      Alert.alert('Login failed', 'Wrong username or password')
+    }
   }
 
- 
-    return (
-      <View style={styles.container} >
-        <ImageBackground source={require('../images/login-bg.png')} style={styles.loginBackground}>
-          <Image source={require('../images/app_logo.png')}/>
-        <View style={styles.inputView}>
-          <Text style={styles.loginText}>Login</Text>
-        <TextInput
-          value = {username}
-          onChangeText={(username) => setUsername(username)}
-          placeholder={'Username'}
-          style={styles.input}
+  function handleUsernameInput(text) {
+    setUsername(text)
+  }
+
+  function handlePasswordInput(text) {
+    setPassword(text)
+  }
+
+  return (
+    <View style={styles.container}>
+      <ImageBackground
+        style={styles.background}
+        source={require('../images/login-bg.png')}
+      >
+        <Image
+          style={styles.logo}
+          source={require('../images/app_logo.png')}
         />
-        <TextInput
-          value={password}
-          onChangeText={(password) => setPassword(password)}
-          placeholder={'Password'}
-          secureTextEntry={true}
-          style={styles.input}
-        />
-        </View>  
+
+        <View style={styles.form}>
+          <Text style={styles.formTitle}>
+            Login
+          </Text>
+
+          <TextInput
+            style={styles.formInput}
+            placeholder='Username'
+            onChangeText={handleUsernameInput}
+          />
+
+          <TextInput
+            style={styles.formInput}
+            placeholder='Password'
+            onChangeText={handlePasswordInput}
+          />
+        </View>
+
         <TouchableOpacity
-          title={'Login'}
-          style={styles.loginButton}
-         onPress={onLogin}
-        ><Text style={styles.loginText}>GO!</Text></TouchableOpacity>
-
-    </ImageBackground>
-      </View>
-    );
-
-
-
-
-
+            style={styles.submitBtn}
+            onPress={handleLogin}
+          >
+            <Text style={styles.submitBtnText}>Go!</Text>
+          </TouchableOpacity>
+      </ImageBackground>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
-   
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#e1e1e1'
-   
-    
-    
   },
-  inputView : {
+  background:{
     display: 'flex',
-    alignItems: 'center',
+    flexDirection: 'column',
     justifyContent: 'space-around',
-    backgroundColor: 'rgba(255, 255, 255, 0.4)',
-    width: '80%',
-    height: '40%',
-    borderRadius: 30,
-    borderColor: 'white',
-    borderWidth: 1,
-
-  }
-  ,
-  input: {
-    
-    fontSize: 16,
-    padding: 10,
-    textAlign: 'center',
-    width: '70%',
-    height: 60,
-    // backgroundColor: 'rgba(255, 255, 255, 0.4)',
-    borderColor: 'rgba(255, 255, 255, 0)',
-    borderBottomColor: 'white',
-  
+    alignItems: 'center',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  },
+  logo:{
+    width: 100,
+    height: 100
+  },
+  form:{
+    paddingBottom: 105,
+    borderRadius: 40,
     borderWidth: 2,
-    marginBottom: 10,
-   
-    
+    borderColor: colors.white,
+    width: '93%',
+    backgroundColor: 'rgba(255, 255, 255, 0.4)'
   },
-  loginBackground: {
-    // flex: 1,
+  formTitle:{
+    fontSize: 35,
+    fontWeight: '700',
+    color: colors.primary,
+    marginTop: 18,
+    textAlign: 'center'
+  },
+  formInput:{
+    marginTop: 75,
+    marginRight: 50,
+    marginLeft: 50,
+    borderBottomColor: colors.white,
+    borderBottomWidth: 1
+  },
+  submitBtn:{
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-around',
-    width: '100%',
-    height: '100%',
-    resizeMode: 'center',
-    // justifyContent: 'center'
+    borderColor: colors.white,
+    borderRadius: 50,
+    borderWidth: 2,
+    paddingLeft: 37,
+    paddingRight: 37,
+    paddingBottom: 8,
+    paddingTop: 8,
+    width: 252
   },
-
-  loginButton: {
-    color: 'blue',
-    width: "60%",
-    borderRadius: 30,
-    borderWidth: 1,
-    borderColor: 'white',
-    height: 60,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 40,
-    backgroundColor:'rgba(255, 255, 255, 0.4)',
-  },
-
-  loginText: {
-     
-    fontSize: 18,
-    color: '#614AD3',
-    fontWeight: 'bold'
+  submitBtnText:{
+    color: colors.primary,
+    fontWeight: 'bold',
+    fontSize: 26,
+    textAlign: 'center'
   }
-
-
- 
 });
 
-export default Login;
+export default Login

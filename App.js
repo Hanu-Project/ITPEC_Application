@@ -1,99 +1,47 @@
-import React,  { useState } from 'react';
-import {StyleSheet } from 'react-native';
-import { Homepage } from './screen/Homepage.js';
+import React, { useState } from 'react'
+import { View, StyleSheet } from 'react-native'
 
-import Login from './screen/Login';
-
+import { screens } from './constants'
+import Home from './screen/Home.js'
+import Welcome from './screen/Welcome'
+import Login from './screen/Login'
+import QuestionList from './screen/QuestionList'
+import QuestionDetail from './screen/QuestionDetail'
+import Result from './screen/Result'
+import ResultDetail from './screen/ResultDetail'
 
 
 const  App = () => {
-  // const [login,setLogin] = useState(false);
+  const [currentScreen, setCurrentScreen] = useState(screens.welcome);
+
+  function handleMoveScreen(screen) {
+    setCurrentScreen(screen)
+  }
+
+  function renderScreen() {
+    switch (currentScreen) {
+      case screens.welcome:
+        return <Welcome handleMoveScreen={handleMoveScreen} />
+      case screens.login:
+        return <Login handleMoveScreen={handleMoveScreen} />
+      case screens.home:
+        return <Home handleMoveScreen={handleMoveScreen} />
+      case screens.questionList:
+        return <QuestionList handleMoveScreen={handleMoveScreen} />
+      case screens.questionDetail:
+        return <QuestionDetail handleMoveScreen={handleMoveScreen} />
+      case screens.result:
+        return <Result handleMoveScreen={handleMoveScreen} />
+      case screens.resultDetail:
+        return <ResultDetail handleMoveScreen={handleMoveScreen} />
+    }
+  }
+
   return (
-
-    <Login></Login>
-  // <>
-  //   {login?<Login login={login} setLogin={setLogin}></Login>:<Homepage></Homepage>}
-  // </>
-    
-  );
-  
-};
-
-const styles = StyleSheet.create({
-  container: {
-   
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#e1e1e1'
-   
-    
-    
-  },
-  inputView : {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    backgroundColor: 'rgba(255, 255, 255, 0.4)',
-    width: '80%',
-    height: '40%',
-    borderRadius: 30,
-    borderColor: 'white',
-    borderWidth: 1,
-
-  }
-  ,
-  input: {
-    
-    fontSize: 16,
-    padding: 10,
-    textAlign: 'center',
-    width: '70%',
-    height: 60,
-    // backgroundColor: 'rgba(255, 255, 255, 0.4)',
-    borderColor: 'rgba(255, 255, 255, 0)',
-    borderBottomColor: 'white',
-  
-    borderWidth: 2,
-    marginBottom: 10,
-   
-    
-  },
-  loginBackground: {
-    // flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    width: '100%',
-    height: '100%',
-    resizeMode: 'center',
-    // justifyContent: 'center'
-  },
-
-  loginButton: {
-    color: 'blue',
-    width: "60%",
-    borderRadius: 30,
-    borderWidth: 1,
-    borderColor: 'white',
-    height: 60,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 40,
-    backgroundColor:'rgba(255, 255, 255, 0.4)',
-  },
-
-  loginText: {
-     
-    fontSize: 18,
-    color: '#614AD3',
-    fontWeight: 'bold'
-  }
-
-
- 
-});
+    <View>
+      {renderScreen()}
+    </View>
+  )
+}
 
 export default App;

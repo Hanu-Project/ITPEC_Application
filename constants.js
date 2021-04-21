@@ -1,6 +1,8 @@
 export const colors = {
   primary: '#614AD3',
-  white: '#fff'
+  white: '#fff',
+  sweetpurple: '#E0DEF7',
+  smoke: '#EEECEC'
 }
 
 export const screens = {

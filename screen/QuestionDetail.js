@@ -1,12 +1,31 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
-import { RadioButton } from 'react-native-paper';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image, Alert } from 'react-native';
 
 import { colors, screens } from '../constants'
 
 const QuestionDetail = ({ handleMoveScreen }) => {
-  const [checked, setChecked] = React.useState();
-  function goBack() {
+
+  const showDialog = () =>
+    Alert.alert(
+      "Do you want to finish your test now ?",
+      "All recent chosen answers will not be saved",
+      [
+        {
+          text: "No",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        {
+          text: "Yes",
+          onPress: () => console.log("OK Pressed") 
+        }
+      ],
+      { cancelable: false }
+    );
+  function goToHomePage() {
+    handleMoveScreen(screens.home)
+  };
+  function menu() {
     handleMoveScreen(screens.questionList)
   };
 
@@ -17,18 +36,34 @@ const QuestionDetail = ({ handleMoveScreen }) => {
         source={require('../images/login-bg.png')}
       >
         <View style={styles.navBar}>
-          <TouchableOpacity
-            onPress={goBack}
-          >
-            {/* TODO: update style */}
-            <Text style={{ marginTop: 30 }}>GO BACK</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-          // onPress={menu}
-          >
-            <Text>menu</Text>
-            {/* TODO: add menu icon and update style */}
-          </TouchableOpacity>
+          <View
+            style={styles.goBackBtn}>
+            <TouchableOpacity
+              title='cancle'
+              style={styles.goBackSize}
+              onPress={showDialog}>
+              <Image
+                style={styles.goBack}
+                source={require('../images/error.png')}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.countDownContainer}>
+            <Image
+              style={styles.arlamImg}
+              source={require('../images/alarm-clock.png')}
+            />
+          </View>
+          <View style={styles.menuBtn}>
+            <TouchableOpacity
+              style={styles.menuSize}
+              onPress={menu}>
+              <Image
+                style={styles.menu}
+                source={require('../images/list.png')}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.questionBox}>
           <Text style={styles.questionText}>
@@ -51,6 +86,9 @@ const QuestionDetail = ({ handleMoveScreen }) => {
         value= "b"
         status = {checked === "b" ? 'checked' : 'unchecked'}
         onPress={() => setChecked('b') }/> */}
+          <View style={styles.answerRadio}>
+            <Text style={styles.answerLetter}>B</Text>
+          </View>
           <Text style={styles.answerText}>Answer B</Text>
         </View>
         <View style={styles.answer}>
@@ -58,6 +96,9 @@ const QuestionDetail = ({ handleMoveScreen }) => {
         value= "c"
         status = {checked === "c" ? 'checked' : 'unchecked'}
         onPress={() => setChecked('c') }/> */}
+          <View style={styles.answerRadio}>
+            <Text style={styles.answerLetter}>C</Text>
+          </View>
           <Text style={styles.answerText}>Answer C</Text>
         </View>
         <View style={styles.answer}>
@@ -65,6 +106,9 @@ const QuestionDetail = ({ handleMoveScreen }) => {
         value= "d"
         status = {checked === "d" ? 'checked' : 'unchecked'}
         onPress={() => setChecked('d') }/> */}
+          <View style={styles.answerRadio}>
+            <Text style={styles.answerLetter}>D</Text>
+          </View>
           <Text style={styles.answerText}>Answer D</Text>
         </View>
         <View style={styles.changeQuestionNo}>
@@ -198,11 +242,84 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   answerLetter: {
-   display: 'flex',
-   textAlign: 'center',
-   alignItems: 'center'
+    display: 'flex',
+    textAlign: 'center',
+    alignItems: 'center'
 
-  }
+  },
+
+  countDownContainer: {
+    marginTop: 40,
+    marginBottom: 0,
+    padding: 4,
+    borderRadius: 25,
+    borderWidth: 2,
+    borderColor: colors.white,
+    width: '50%',
+    height: 55,
+    backgroundColor: '#B4BEF1',
+  },
+  arlamImg: {
+    width: 30,
+    height: 30,
+    marginLeft: 20,
+    marginTop: 7,
+  },
+  menu: {
+    width: 20,
+    height: 20,
+  },
+  menuBtn: {
+    position: 'absolute',
+    top: 0,
+    left: 250,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 50,
+    height: 50,
+  },
+  menuSize: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 50,
+    height: 50,
+  },
+  countDownContainer: {
+
+    padding: 4,
+    borderRadius: 25,
+    borderWidth: 2,
+    borderColor: colors.white,
+    width: 210,
+    height: 55,
+    backgroundColor: '#B4BEF1',
+  },
+  navBar: {
+    marginTop: 40,
+    flex: 1,
+    flexDirection: 'row',
+
+  },
+  goBack: {
+    width: 20,
+    height: 20,
+  },
+  goBackBtn: {
+    position: 'absolute',
+    top: 0,
+    left: -90,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 50,
+    height: 50,
+  },
+  goBackSize: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 50,
+    height: 50,
+
+  },
 })
 
 export default QuestionDetail

@@ -1,4 +1,5 @@
 import React,  { useState, useEffect } from 'react';
+import {StartusBar} from 'expo-status-bar';
 import {
   Alert,
   TouchableOpacity,
@@ -10,12 +11,22 @@ import {
   Text,
   Dimensions
 } from 'react-native';
+import { FloatingLabelInput } from 'react-native-floating-label-input';
 
 import { accounts, colors, screens } from '../constants'
 
 const Login = ({ handleMoveScreen, setCurrentAccount, currentAccount }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [show, setShow] = useState(false)
+
+  useEffect(()=> {
+    const timeOut = setTimeout(() => {
+      setShow(!show)
+    }, 5000);
+    return () => clearTimeout(timeOut)
+  }, [show]
+  )
 
   useEffect(() => {
     if (currentAccount) {
@@ -68,6 +79,7 @@ const Login = ({ handleMoveScreen, setCurrentAccount, currentAccount }) => {
 
           <TextInput
             style={styles.formInput}
+            secureTextEntry={true}
             placeholder='Password'
             onChangeText={handlePasswordInput}
           />

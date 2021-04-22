@@ -25,11 +25,16 @@ const Home = ({ handleMoveScreen }) => {
         style={styles.background}
         source={require('../images/login-bg.png')}
       >
-        <TouchableOpacity onPress={goBack}>
-          {/* TODO: update style */}
-          <Text style={{ marginTop: 30 }}>GO BACK</Text>
-        </TouchableOpacity>
-
+        <View style={styles.goBackBtn}>
+          <TouchableOpacity 
+           style={styles.goBackSize}
+          onPress={goBack}>
+            <Image
+              style={styles.goBack}
+              source={require('../images/arrow.png')}
+            />
+          </TouchableOpacity>
+        </View>
         <View style={styles.headingForm}>
           <Image
             style={styles.logo}
@@ -41,8 +46,6 @@ const Home = ({ handleMoveScreen }) => {
             <Text style={styles.infoLine2}>Professional Examination Council</Text>
           </View>
         </View>
-
-
         <TouchableOpacity
           onPress={() => handleTakeTest(exams.fundamentalInformationTechnologyEnginner)}
           style={styles.boxTest}
@@ -52,10 +55,8 @@ const Home = ({ handleMoveScreen }) => {
             <Text style={styles.boxFormText}>Technology Engineer</Text>
             <Text style={styles.boxFormText}>Passport Examnination</Text>
           </View>
-
           <Text style={styles.boxFormNoQuestion}>20 Questions</Text>
         </TouchableOpacity>
-
         <TouchableOpacity
           onPress={() => handleTakeTest(exams.informationTechnologyPassport)}
           style={styles.boxTest}
@@ -64,7 +65,6 @@ const Home = ({ handleMoveScreen }) => {
             <Text style={styles.boxFormText}>Information Technology</Text>
             <Text style={styles.boxFormText}>Passport Examnination</Text>
           </View>
-
           <Text style={styles.boxFormNoQuestion}>20 Questions</Text>
         </TouchableOpacity>
       </ImageBackground>
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap'
   },
-  headingFormText:{
+  headingFormText: {
     marginTop: 55,
     marginLeft: 5,
     marginBottom: 45
@@ -133,6 +133,25 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontSize: 10
   },
+  goBack: {
+    width: 20,
+    height: 20,
+  },
+  goBackBtn: {
+    position: 'absolute',
+    top: 70,
+    left: 34,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 50,
+    height: 50,
+  },
+  goBackSize: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 50,
+    height: 50,
+  }
 })
 
 export default Home

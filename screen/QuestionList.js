@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image } from 'react-native';
 
 import { colors, screens } from '../constants'
 
@@ -17,13 +17,23 @@ const QuestionList = ({ handleMoveScreen }) => {
         style={styles.background}
         source={require('../images/login-bg.png')}
       >
-        <View style={styles.navBar}>
-          <TouchableOpacity
-          onPress={goBack}
-          >
-            {/* TODO: update style */}
-            <Text style={{ marginTop: 30 }}>GO BACK</Text>
+          <View style={styles.goBackBtn}>
+          <TouchableOpacity 
+           style={styles.goBackSize}
+          onPress={goBack}>
+            <Image
+              style={styles.goBack}
+              source={require('../images/arrow.png')}
+            />
           </TouchableOpacity>
+        </View>
+        <View style={styles.countDownContainer}>
+        <Image
+              style={styles.arlamImg}
+              source={require('../images/alarm-clock.png')}
+            />
+        </View>
+        <View style={styles.navBar}>
         </View>
         <View style={styles.testTitle}>
           <Text style={styles.testTitleText}>IT Passport Examination</Text>
@@ -167,8 +177,8 @@ const styles = StyleSheet.create({
     resizeMode: 'center'
   },
   testTitle: {
-    marginTop: 40,
-    marginBottom: 40,
+    marginTop: 30,
+    marginBottom: 30,
     padding: 4,
     borderRadius: 25,
     borderWidth: 2,
@@ -184,7 +194,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   noQuesBox: {
-    paddingBottom: 90,
+    paddingBottom: 65,
     paddingLeft: 20,
     paddingRight: 20,
     borderRadius: 25,
@@ -198,21 +208,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    marginTop: 70
+    marginTop: 65
   },
   items: {
     width: '25%',
     alignItems: 'center',
-    marginTop: '-10%'
+    marginTop: '-15%',
+    marginBottom: '-15%'
   },
   no: {
     borderRadius: 50,
     backgroundColor: colors.white,
     borderWidth: 2,
     borderColor: colors.white,
-    width: 50,
-    height: 50,
-    paddingTop: 15
+    width: 45,
+    height: 45,
+    paddingTop: 12
   },
   noText: {
     textAlign: 'center',
@@ -246,10 +257,46 @@ const styles = StyleSheet.create({
   submitBtnText: {
     color: colors.white,
     fontWeight: 'bold',
-    fontSize: 26,
+    fontSize: 20,
     paddingTop: 8,
     paddingBottom: 8,
     textAlign: 'center',
+  },
+  goBack: {
+    width: 20,
+    height: 20,
+  },
+  goBackBtn: {
+    position: 'absolute',
+    top: 43,
+    left: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 50,
+    height: 50,
+  },
+  goBackSize: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 50,
+    height: 50,
+  },
+  countDownContainer: {
+    marginTop: 40,
+    marginBottom: 0,
+    padding: 4,
+    borderRadius: 25,
+    borderWidth: 2,
+    borderColor: colors.white,
+    width: 210,
+    height: 55,
+    backgroundColor: '#B4BEF1',
+  },
+  arlamImg: {
+    width: 30,
+    height: 30,
+    marginLeft: 20,
+    marginTop: 7,
   }
 })
 export default QuestionList

@@ -10,6 +10,9 @@ const QuestionList = ({ handleMoveScreen }) => {
   function handleDetailTap() {
     handleMoveScreen(screens.questionDetail)
   };
+  function handleSubmitBtnClick() {
+    handleMoveScreen(screens.result)
+  };
   return (
 
     <View style={styles.container}>
@@ -157,7 +160,7 @@ const QuestionList = ({ handleMoveScreen }) => {
         <View style={styles.submitView}>
           <TouchableOpacity
             style={styles.submitBtn}
-          // onPress={handleSubmitBtnClick}
+          onPress={handleSubmitBtnClick}
           >
             <Text style={styles.submitBtnText}>SUBMIT</Text>
           </TouchableOpacity>

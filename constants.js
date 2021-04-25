@@ -12,7 +12,8 @@ export const screens = {
   questionList: 'questionList',
   questionDetail: 'questionDetail',
   result: 'result',
-  resultDetail: 'resultDetail' 
+  resultDetail: 'resultDetail',
+  resultList: 'resultList'
 }
 
 export const accounts = [

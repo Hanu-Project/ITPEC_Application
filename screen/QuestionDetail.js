@@ -17,7 +17,7 @@ const QuestionDetail = ({ handleMoveScreen }) => {
         },
         {
           text: "Yes",
-          onPress: () => console.log("OK Pressed") 
+          onPress: () => {console.log("OK Pressed")}
         }
       ],
       { cancelable: false }

@@ -1,5 +1,5 @@
 
-import React from 'react'
+import * as React from 'react'
 import { View, Text, TouchableOpacity, Image, ImageBackground, StyleSheet, Alert } from 'react-native'
 
 import { colors, screens } from '../constants'
@@ -7,7 +7,7 @@ import { colors, screens } from '../constants'
 const Result = ({ handleMoveScreen }) => {
   const showDialog = () =>
     Alert.alert(
-      "Do you want to finish your test now ?",
+      "Do you want to go back Homepage ?",
       "All recent chosen answers will not be saved",
       [
         {
@@ -28,6 +28,7 @@ const Result = ({ handleMoveScreen }) => {
   function viewResultList() {
     handleMoveScreen(screens.questionList)
   };
+ 
   return (
 
     <View style={styles.container}>
@@ -202,7 +203,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderColor: colors.white,
     flexDirection: 'row',
-    marginBottom: 20
+    marginBottom: 20,
   },
   tryAgainBtn:{
     display: 'flex',
@@ -221,7 +222,7 @@ const styles = StyleSheet.create({
     color: colors.smoke,
     fontWeight: 'bold',
     fontSize: 20,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   viewResultBtn:{
     display: 'flex',
@@ -241,7 +242,7 @@ const styles = StyleSheet.create({
     color: '#75D2E5',
     fontWeight: 'bold',
     fontSize: 20,
-    textAlign: 'center'
+    textAlign: 'center',
   },
 })
 

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image, Alert } from 'react-native';
+import moment from "moment";
 
 import { colors, screens } from '../constants'
 
 const QuestionDetail = ({ handleMoveScreen }) => {
-
   const showDialog = () =>
     Alert.alert(
       "Do you want to finish your test now ?",
@@ -27,6 +27,9 @@ const QuestionDetail = ({ handleMoveScreen }) => {
   };
   function menu() {
     handleMoveScreen(screens.questionList)
+  };
+  function loadData() {
+
   };
 
   return (
@@ -114,7 +117,10 @@ const QuestionDetail = ({ handleMoveScreen }) => {
         <View style={styles.changeQuestionNo}>
           <View style={styles.items}>
             <TouchableOpacity style={styles.backQuesBtn}>
-              <Text>{'<'}</Text>
+            <Image
+                style={styles.leftArrowImg}
+                source={require('../images/left-arrow-ques.png')}
+              />
             </TouchableOpacity>
           </View>
           <View style={styles.itemMid}>
@@ -122,7 +128,10 @@ const QuestionDetail = ({ handleMoveScreen }) => {
           </View>
           <View style={styles.items}>
             <TouchableOpacity style={styles.forwardQuesBtn}>
-              <Text>{'>'}</Text>
+            <Image
+                style={styles.rightArrowImg}
+                source={require('../images/right-arrow-ques.png')}
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -204,7 +213,8 @@ const styles = StyleSheet.create({
     borderColor: colors.white,
     width: 40,
     height: 40,
-    paddingTop: 10,
+    paddingTop: 8,
+    paddingRight: 4,
     alignItems: 'center',
     textAlign: 'center'
 
@@ -216,7 +226,8 @@ const styles = StyleSheet.create({
     borderColor: colors.white,
     width: 40,
     height: 40,
-    paddingTop: 10,
+    paddingTop: 8,
+    paddingLeft: 4,
     alignItems: 'center',
     textAlign: 'center'
 
@@ -318,8 +329,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 50,
     height: 50,
-
   },
+  leftArrowImg: {
+    width: 20,
+    height: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  rightArrowImg: {
+    width: 20,
+    height: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 })
 
 export default QuestionDetail

@@ -1,3 +1,5 @@
+import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
 import React from 'react'
 import {
   View,
@@ -11,13 +13,27 @@ import {
 import { colors, screens, exams } from '../constants'
 
 const Home = ({ handleMoveScreen }) => {
+  let [fontsLoaded] = useFonts({
+        
+    'Poppins-Bold' : require('../assets/fonts/Poppins-Bold.ttf'),
+    'Poppins-BLack' : require('../assets/fonts/Poppins-Black.ttf'),
+    'Poppins-Regular' : require('../assets/fonts/Poppins-Regular.ttf'),
+    'Poppins-Medium' : require('../assets/fonts/Poppins-Medium.ttf')
+});
+
   function handleTakeTest(exam) {
-    handleMoveScreen(screens.questionList, { exam: exam })
+    handleMoveScreen(screens.questionDetail, { exam: exam })
   }
 
   function goBack() {
     handleMoveScreen(screens.welcome)
   }
+
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+} else {
+
 
   return (
     <View style={styles.container}>
@@ -71,6 +87,7 @@ const Home = ({ handleMoveScreen }) => {
     </View>
   )
 }
+}
 const styles = StyleSheet.create({
   container: {},
   background: {
@@ -104,7 +121,8 @@ const styles = StyleSheet.create({
   infoLine1: {
     fontSize: 14,
     fontWeight: 'normal',
-    color: colors.primary
+    color: colors.primary,
+    
   },
   infoLine2: {
     fontSize: 12,
@@ -123,9 +141,11 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 133,
     backgroundColor: 'rgba(255, 255, 255, 0.4)',
-    marginTop: 15
+    marginTop: 15,
+    
   },
   boxFormText: {
+    fontFamily: 'Poppins-Regular'
   },
   boxFormNoQuestion: {
     marginBottom: 20,

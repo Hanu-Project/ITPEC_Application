@@ -1,10 +1,23 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image, Alert, ScrollView } from 'react-native';
 import moment from "moment";
 
-import { colors, screens } from '../constants'
+import { colors, screens, questions } from '../constants'
+import { useState } from 'react';
 
 const QuestionDetail = ({ handleMoveScreen }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [userAnswer, setUserAnswer] = useState(null);
+  const questionArray =  questions.itpassport;
+  
+  
+
+
+
+
+
+
+
   const showDialog = () =>
     Alert.alert(
       "Do you want to finish your test now ?",
@@ -17,21 +30,35 @@ const QuestionDetail = ({ handleMoveScreen }) => {
         },
         {
           text: "Yes",
-          onPress: () => {console.log("OK Pressed")}
+          onPress: () => {console.log("OK Pressed");}
         }
       ],
       { cancelable: false }
     );
   function goToHomePage() {
-    handleMoveScreen(screens.home)
-  };
+    
+    handleMoveScreen(screens.home);
+  }
   function menu() {
-    handleMoveScreen(screens.questionList)
-  };
-  function loadData() {
+    handleMoveScreen(screens.questionList);
 
+  }
+
+  const onPrevPress = () => {
+    if(currentIndex > 0) {
+      setCurrentIndex(currentIndex -1)
+    console.log('prev done');
+    }
+  };
+  const onNextPress = () => {
+    if( currentIndex < questionArray.length ) {
+      setCurrentIndex(currentIndex +1)
+      console.log('next done');
+    }
   };
 
+
+ 
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -42,7 +69,7 @@ const QuestionDetail = ({ handleMoveScreen }) => {
           <View
             style={styles.goBackBtn}>
             <TouchableOpacity
-              title='cancle'
+              title='cancel'
               style={styles.goBackSize}
               onPress={showDialog}>
               <Image
@@ -68,55 +95,61 @@ const QuestionDetail = ({ handleMoveScreen }) => {
             </TouchableOpacity>
           </View>
         </View>
+      
+
+       <ScrollView style={styles.ScrollView}>
         <View style={styles.questionBox}>
           <Text style={styles.questionText}>
-            There is an electronic file that needs to be made confidential. Which of the following is the appropriate security technology to use in order to ensure the confidentiality of this file?
-        </Text>
+          {questionArray[currentIndex].text}
+          </Text>
         </View>
         <TouchableOpacity style={styles.answer}>
-          {/* <RadioButton
-        value= "a"
-        status = {checked === "a" ? 'checked' : 'unchecked'}
-        onPress={() => setChecked('a') }/> */}
+         
+         
           <View style={styles.answerRadio}>
             <Text style={styles.answerLetter}>A</Text>
           </View>
-          <Text style={styles.answerText}>Answer A</Text>
+          <Text style={styles.answerText}>
+            {questionArray[currentIndex].answers[0]}
+          </Text>
 
         </TouchableOpacity>
-        <View style={styles.answer}>
-          {/* <RadioButton
-        value= "b"
-        status = {checked === "b" ? 'checked' : 'unchecked'}
-        onPress={() => setChecked('b') }/> */}
+        <TouchableOpacity style={styles.answer}>
+        
+        
           <View style={styles.answerRadio}>
             <Text style={styles.answerLetter}>B</Text>
           </View>
-          <Text style={styles.answerText}>Answer B</Text>
-        </View>
-        <View style={styles.answer}>
-          {/* <RadioButton
-        value= "c"
-        status = {checked === "c" ? 'checked' : 'unchecked'}
-        onPress={() => setChecked('c') }/> */}
+          <Text style={styles.answerText}>
+          {questionArray[currentIndex].answers[1]}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.answer}>
+         
           <View style={styles.answerRadio}>
             <Text style={styles.answerLetter}>C</Text>
           </View>
-          <Text style={styles.answerText}>Answer C</Text>
-        </View>
-        <View style={styles.answer}>
-          {/* <RadioButton
-        value= "d"
-        status = {checked === "d" ? 'checked' : 'unchecked'}
-        onPress={() => setChecked('d') }/> */}
+          <Text style={styles.answerText}>
+          {questionArray[currentIndex].answers[2]}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.answer}>
+         
+         
           <View style={styles.answerRadio}>
             <Text style={styles.answerLetter}>D</Text>
           </View>
-          <Text style={styles.answerText}>Answer D</Text>
-        </View>
+          <Text style={styles.answerText}>
+          {questionArray[currentIndex].answers[3]}
+          </Text>
+        </TouchableOpacity>
+        </ScrollView>
+      
         <View style={styles.changeQuestionNo}>
           <View style={styles.items}>
-            <TouchableOpacity style={styles.backQuesBtn}>
+            <TouchableOpacity style={styles.backQuesBtn}
+                onPress= { onPrevPress }
+                >
             <Image
                 style={styles.leftArrowImg}
                 source={require('../images/left-arrow-ques.png')}
@@ -124,13 +157,15 @@ const QuestionDetail = ({ handleMoveScreen }) => {
             </TouchableOpacity>
           </View>
           <View style={styles.itemMid}>
-            <Text style={styles.quesNo}>Question: 1/20</Text>
+            <Text style={styles.quesNo}>Question: {currentIndex+1}/20</Text>
           </View>
           <View style={styles.items}>
-            <TouchableOpacity style={styles.forwardQuesBtn}>
+            <TouchableOpacity style={styles.forwardQuesBtn}
+             onPress= { onNextPress }>
             <Image
                 style={styles.rightArrowImg}
                 source={require('../images/right-arrow-ques.png')}
+               
               />
             </TouchableOpacity>
           </View>
@@ -142,8 +177,7 @@ const QuestionDetail = ({ handleMoveScreen }) => {
 const styles = StyleSheet.create({
   container: {},
   background: {
-    display: 'flex',
-    flexDirection: 'column',
+    
     alignItems: 'center',
     width: '100%',
     height: '100%',
@@ -155,21 +189,23 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 25,
     borderWidth: 2,
-    borderColor: colors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: colors.primary,
     width: '93%',
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
   },
   questionText: {
     fontSize: 16,
     fontWeight: '400',
-    marginTop: 18,
     textAlign: 'justify',
     color: '#000000'
   },
   answer: {
     marginTop: 10,
     marginBottom: 10,
-    padding: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
     borderRadius: 25,
     borderWidth: 2,
     borderColor: colors.white,
@@ -183,14 +219,15 @@ const styles = StyleSheet.create({
   answerText: {
     flex: 1,
     textAlign: 'center',
+    padding: 20
   },
   changeQuestionNo: {
     padding: 20,
+    paddingBottom: 60,
     borderRadius: 28,
     borderWidth: 2,
     borderColor: colors.white,
     width: '100%',
-    height: 98,
     backgroundColor: colors.sweetpurple,
     bottom: 0,
     flex: 1,
@@ -307,6 +344,8 @@ const styles = StyleSheet.create({
   },
   navBar: {
     marginTop: 40,
+    marginBottom: 20,
+   
     flex: 1,
     flexDirection: 'row',
 
@@ -341,7 +380,15 @@ const styles = StyleSheet.create({
     height: 20,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  ScrollView: {
+    marginTop: 50,
+    width: '100%',
+    marginLeft: "7%"
+    
+
   }
+ 
 })
 
 export default QuestionDetail

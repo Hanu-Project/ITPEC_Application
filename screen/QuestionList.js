@@ -1,9 +1,12 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image } from 'react-native';
+import { useState } from 'react/cjs/react.development';
 
 import { colors, screens } from '../constants'
 
 const QuestionList = ({ handleMoveScreen }) => {
+  const [currentIndex, setCurrentIndex] = useState(null);
+  
   function goBack() {
     handleMoveScreen(screens.home)
   };
@@ -53,7 +56,8 @@ const QuestionList = ({ handleMoveScreen }) => {
               </TouchableOpacity>
             </View>
             <View style={styles.items}>
-              <TouchableOpacity style={styles.no}>
+              <TouchableOpacity style={styles.no}
+               onPress= {handleDetailTap}>
                 <Text style={styles.noText}>2</Text>
               </TouchableOpacity>
             </View>
